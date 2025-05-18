@@ -1,0 +1,27 @@
+{
+  "name": "glb-connect",
+  "version": "1.0.0",
+  "description": "Job posting application for GLB.Connect",
+  "main": "index.js",
+  "scripts": {
+    "frontend": "cd frontend && npm run dev",
+    "backend": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "install-deps": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "setup-db": "cd backend && npx prisma generate && npx prisma migrate dev",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start"
+  },
+  "keywords": [
+    "jobs",
+    "posting",
+    "react",
+    "express",
+    "prisma"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

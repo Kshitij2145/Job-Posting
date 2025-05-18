@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Job {
+  id                  Int      @id @default(autoincrement())
+  title               String
+  companyName         String
+  companyWebsite      String?
+  companyDescription  String?
+  contactName         String
+  contactEmail        String
+  contactPhone        String?
+  description         String
+  locations           String
+  locationType        String   @default("On-site")
+  industry            String?
+  workplaceType       String
+  opportunityType     String
+  salary              Salary?
+  requirements        Requirements?
+  postedAt            DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  isOpen              Boolean  @default(true)
+}
+
+model Salary {
+  id         Int     @id @default(autoincrement())
+  currency   String  @default("INR")
+  type       String  @default("per year")
+  minAmount  Float?
+  maxAmount  Float?
+  job        Job     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  jobId      Int     @unique
+}
+
+model Requirements {
+  id                       Int      @id @default(autoincrement())
+  skills                   String?
+  minExperience            Int?
+  maxExperience            Int?
+  education                String?
+  applicationDeadline      DateTime?
+  applicationMethod        String
+  applicationEmail         String?
+  applicationUrl           String?
+  applicationLink          String   // Required field for direct application link
+  applicationInPersonDetails String?
+  job                      Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  jobId                    Int      @unique
+} 
